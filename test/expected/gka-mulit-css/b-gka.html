@@ -1,0 +1,36 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0,maximum-scale=1">
+    
+    <title>gka-preview</title>
+<link href="./b-gka.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+    <div class="gka-wrap">
+        <div id="gka"></div>
+    </div>
+    <script>
+    function preloadImage(names, cb, prefix){
+        window.gkaCache = window.gkaCache || [];
+        var n = 0,img,imgs = {};
+        names.forEach(function(name) {
+            img = new Image();
+            window.gkaCache.push(img);
+            img.onload = (function(name, img) {
+                return function() {
+                    imgs[name] = img;
+                    (++n === names.length) && cb && cb(imgs);
+                }
+            })(name, img);
+            img.src = (prefix || '') + name;
+        });
+    }
+
+    preloadImage(["b_a10.png","b_a11.png","b_a12.png","b_a13.png","b_a14.png","b_a15.png","b_a16.png","b_a17.png","b_a18.png","b_a19.png","b_a20.png"], function() {
+        document.getElementById('gka').className += " animation"
+    }, "img/")
+    </script>
+</body>
+</html>
